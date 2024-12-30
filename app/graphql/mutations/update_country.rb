@@ -6,9 +6,15 @@ module Mutations
     argument :name, String, required: false
     argument :continent, String, required: false
 
-    def resolve(id:,name:,continent:)
+    def resolve(id:, name: nil, continent: nil)
+      country = Country.find_by(id)
+      update_attributes = {}
+      update_attributes[:name] = name if name
+      update_attributes[:continent] = continent if continent
+      country.update!(update_attributes)
+
       {
-        country: Country.update(id, {name: name, continent: continent})
+        country: country
       }
     end
   end

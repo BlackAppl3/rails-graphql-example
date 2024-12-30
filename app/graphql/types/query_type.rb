@@ -10,11 +10,10 @@ module Types
       Country.where(id: id).first
     end
 
-    field :countries, [Types::CountryType], null: true
+    field :countries, [Types::CountryType], null: true, deprecation_reason: "Use the new `allCountries` query instead."
     def countries
       Country.all
     end
-
 
     field :person, Types::PersonType, null: true do
       argument :id, ID, required: true
